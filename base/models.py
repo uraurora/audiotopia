@@ -1,4 +1,8 @@
 from decimal import Decimal
+
+from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from softdelete.models import SoftDeleteObject, SoftDeleteManager
 
@@ -7,9 +11,10 @@ from typing import List, Dict, Tuple
 import uuid
 
 
+GLOBAL_USER = settings.AUTH_USER_MODEL
+
 # Create your models here.
 class BaseModel(SoftDeleteObject, models.Model):
-
     objects = SoftDeleteManager()
 
     id = models.UUIDField(
@@ -71,3 +76,16 @@ class BaseModel(SoftDeleteObject, models.Model):
 
     class Meta:
         abstract: bool = True
+
+
+class GenericBaseModel(BaseModel):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.UUIDField(db_index=True)
+    content_object = GenericForeignKey(ct_field="content_type", fk_field="object_id")
+
+    class Meta:
+        abstract: bool = True
+
+        indexes = [
+            models.Index(fields=['content_type', 'object_id'])
+        ]

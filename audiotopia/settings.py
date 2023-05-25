@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'mptt',
     'softdelete',
     'generic_relations',
-    "debug_toolbar",
+    'debug_toolbar',
+    'django_filters'
     # </editor-fold>
 
     # <editor-fold desc="project apps">

@@ -17,8 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from ai.urls import router as ar
+from ugc.urls import router as ur
+
 urlpatterns = [
     path(r'comments/', include('django_comments.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('admin/', admin.site.urls),
+    path('ai/', include(ar.urls)),
+    path('ugc/', include(ur.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
