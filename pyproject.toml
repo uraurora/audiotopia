@@ -18,9 +18,17 @@ django-debug-toolbar = "^4.1.0"
 mysqlclient = "^2.1.1"
 rest-framework-generic-relations = "^2.1.0"
 django-filter = "^23.2"
-
-pyannote-audio = { path = "./static/pyannote-audio-develop" }
+#pyannote-audio = { path = "./static/pyannote-audio-develop" }
+hmmlearn = {git = "https://github.com/hmmlearn/hmmlearn.git"}
 urllib3 = "1.26.4"
+prefect = "^2.10.12"
+pyannote-audio = "^2.1.1"
+pydub = "^0.25.1"
+
+
+[tool.poetry.dev-dependencies]
+jupyter = "^1.0.0"
+ipykernel = "^6.23.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -28,9 +36,11 @@ build-backend = "poetry.core.masonry.api"
 
 [[tool.poetry.source]]
 name = "tsinghua-source"
-# 清华源
 url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
-#name = "aliyun-source"
-#url = " http://mirrors.aliyun.com/pypi/simple/"
-# 仅从定义仓库获取
-default = false
+priority = "default"
+
+[[tool.poetry.source]]
+name = "aliyun-source"
+url = "http://mirrors.aliyun.com/pypi/simple/"
+priority = "supplemental"
+# https://pypi.org/simple/
